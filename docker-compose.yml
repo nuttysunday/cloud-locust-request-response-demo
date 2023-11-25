@@ -1,0 +1,13 @@
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+      - "8080:5000"  # Change the second port to the desired port for your "web" service
+  locust:
+    image: locustio/locust
+    command: -f locustfile.py --host=http://web:5000
+    ports:
+      - "8089:8089"
+    depends_on:
+      - web
